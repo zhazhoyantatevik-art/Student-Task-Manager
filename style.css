@@ -1,0 +1,382 @@
+/* =========================================================
+   Student Task Manager — Stylesheet
+   Design concept: a clean "notebook page" — a warm paper
+   background, a single ruled margin line as the one bold
+   accent, and quiet, disciplined styling everywhere else.
+   ========================================================= */
+
+/* ---------- Design tokens ---------- */
+:root {
+  /* Colors */
+  --color-bg: #f6f4ee;             /* warm paper background */
+  --color-card: #ffffff;           /* card surface */
+  --color-ink: #262420;            /* primary text, warm charcoal */
+  --color-ink-soft: #6b6558;       /* secondary text */
+  --color-rule: #e6e1d6;           /* thin ruled lines */
+  --color-accent: #3b5bA9;         /* pen-blue accent */
+  --color-accent-dark: #2e4785;
+  --color-accent-soft: #eaeefb;
+  --color-success: #4c7a5d;        /* muted green for completed */
+  --color-success-soft: #e7f0ea;
+  --color-danger: #b3462f;         /* muted brick red for delete */
+  --color-danger-soft: #faeae6;
+  --color-margin-line: #c96a56;    /* notebook margin rule */
+
+  /* Typography */
+  --font-heading: Georgia, "Times New Roman", serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  /* Layout */
+  --radius: 10px;
+  --shadow-card: 0 1px 2px rgba(38, 36, 32, 0.04), 0 12px 32px rgba(38, 36, 32, 0.08);
+  --transition: 150ms ease;
+}
+
+/* ---------- Reset & base ---------- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 48px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: var(--color-bg);
+  background-image:
+    radial-gradient(circle, rgba(38, 36, 32, 0.05) 1px, transparent 1px);
+  background-size: 22px 22px;
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 2px;
+  letter-spacing: 0.2px;
+}
+
+/* Visible focus state for accessibility */
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ---------- App card ---------- */
+.app-card {
+  width: 100%;
+  max-width: 520px;
+  background: var(--color-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  padding: 32px 32px 28px 36px;
+  position: relative;
+  border-left: 3px solid var(--color-margin-line);
+}
+
+.page-footer {
+  margin-top: 22px;
+  color: var(--color-ink-soft);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+/* ---------- Header ---------- */
+.app-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.logo-mark {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  margin-top: 2px;
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--color-ink-soft);
+  font-size: 0.9rem;
+}
+
+/* ---------- Add task form ---------- */
+.task-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.task-input {
+  flex: 1;
+  min-width: 0;
+  padding: 11px 14px;
+  border: 1px solid var(--color-rule);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--color-ink);
+  background: #fffdf9;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.task-input::placeholder {
+  color: #a39c8c;
+}
+
+.task-input:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-soft);
+}
+
+.btn {
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  padding: 11px 18px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background: var(--color-accent-dark);
+}
+
+.form-error {
+  min-height: 18px;
+  margin: 4px 2px 14px;
+  color: var(--color-danger);
+  font-size: 0.82rem;
+}
+
+/* ---------- Stats ---------- */
+.stats {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.stat {
+  flex: 1;
+  text-align: center;
+  padding: 10px 6px;
+  border-radius: 8px;
+  background: #fbfaf6;
+  border: 1px solid var(--color-rule);
+}
+
+.stat-number {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--color-ink-soft);
+  margin-top: 2px;
+}
+
+/* ---------- Filters ---------- */
+.filters {
+  display: flex;
+  gap: 6px;
+  border-bottom: 1px solid var(--color-rule);
+  margin-bottom: 8px;
+}
+
+.filter-btn {
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  background: none;
+  border: none;
+  padding: 9px 12px;
+  color: var(--color-ink-soft);
+  cursor: pointer;
+  position: relative;
+  top: 1px;
+  border-bottom: 2px solid transparent;
+  transition: color var(--transition), border-color var(--transition);
+}
+
+.filter-btn:hover {
+  color: var(--color-ink);
+}
+
+.filter-btn.active {
+  color: var(--color-accent);
+  border-bottom: 2px solid var(--color-accent);
+  font-weight: 700;
+}
+
+/* ---------- Task list ---------- */
+.task-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 2px;
+  border-bottom: 1px solid var(--color-rule);
+  animation: fade-in 180ms ease;
+}
+
+.task-item:last-child {
+  border-bottom: none;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom checkbox */
+.task-checkbox {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--color-rule);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  display: grid;
+  place-content: center;
+  transition: border-color var(--transition), background var(--transition);
+}
+
+.task-checkbox::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform var(--transition);
+  background: var(--color-success);
+}
+
+.task-checkbox:checked {
+  border-color: var(--color-success);
+}
+
+.task-checkbox:checked::before {
+  transform: scale(1);
+}
+
+.task-text {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.95rem;
+  word-break: break-word;
+  color: var(--color-ink);
+}
+
+.task-item.completed .task-text {
+  text-decoration: line-through;
+  color: var(--color-ink-soft);
+}
+
+.task-delete {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-ink-soft);
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition), color var(--transition);
+}
+
+.task-delete:hover {
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+/* ---------- Empty state ---------- */
+.empty-state {
+  display: none; /* toggled to "flex" by JavaScript when list is empty */
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 34px 10px 14px;
+  color: var(--color-ink-soft);
+}
+
+.empty-emoji {
+  font-size: 1.8rem;
+  margin: 0 0 6px;
+}
+
+.empty-title {
+  margin: 0;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.empty-subtitle {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 480px) {
+  body {
+    padding: 24px 12px;
+  }
+
+  .app-card {
+    padding: 24px 18px 20px 22px;
+  }
+
+  .task-form {
+    flex-direction: column;
+  }
+
+  .btn-primary {
+    width: 100%;
+  }
+
+  .stats {
+    gap: 8px;
+  }
+}
